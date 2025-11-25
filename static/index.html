@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WedLock AI - Smart Matrimony</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-screen flex flex-col overflow-hidden font-sans bg-gray-50 text-gray-900">
+
+    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300 bg-white border-l-4 border-pink-500 shadow-xl rounded p-4 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-pink-500 text-xl"></i>
+        <div>
+            <h4 class="font-bold text-gray-800 text-sm">Notification</h4>
+            <p class="text-gray-500 text-xs" id="toast-msg">Message goes here</p>
+        </div>
+    </div>
+
+    <section id="screen-landing" class="h-full flex flex-col relative bg-gradient-to-br from-pink-600 to-rose-700 text-white">
+        <div class="absolute inset-0 pattern-bg opacity-10"></div>
+        <nav class="p-6 flex justify-between items-center relative z-10">
+            <div class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid fa-rings-wedding"></i> WedLock AI</div>
+            <button onclick="router('screen-login-admin')" class="text-sm bg-white/10 px-4 py-2 rounded hover:bg-white/20">Admin Login</button>
+        </nav>
+        <div class="flex-1 flex flex-col items-center justify-center text-center p-6 relative z-10">
+            <span class="bg-pink-800/30 border border-pink-400/30 px-4 py-1 rounded-full text-xs font-bold mb-4 tracking-wider">INDIA'S FIRST AI MATRIMONY</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">Find Your <br>Perfect Match.</h1>
+            <p class="text-xl md:text-2xl mb-12 opacity-90 max-w-2xl font-light">Stop swiping. Start connecting with AI-verified profiles compatible with your culture & values.</p>
+            <button onclick="router('screen-register')" class="bg-white text-pink-600 py-4 px-10 rounded-full font-bold text-lg shadow-2xl hover:bg-gray-50 transition transform hover:-translate-y-1">
+                Create Free Profile
+            </button>
+        </div>
+    </section>
+
+    <section id="screen-register" class="hidden-screen h-full overflow-y-auto bg-gray-50 p-4">
+        <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden my-8 p-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Create Profile</h2>
+            
+            <div class="space-y-4">
+                <input type="text" id="reg-name" placeholder="Full Name" class="input-field">
+                <input type="number" id="reg-age" placeholder="Age" class="input-field">
+                <input type="tel" id="reg-phone" placeholder="Phone Number (+91...)" class="input-field">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <select id="reg-gender" class="input-field">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <select id="reg-religion" class="input-field">
+                        <option value="Hindu">Hindu</option>
+                        <option value="Muslim">Muslim</option>
+                        <option value="Christian">Christian</option>
+                        <option value="Sikh">Sikh</option>
+                    </select>
+                </div>
+                
+                <select id="reg-job" class="input-field">
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Business">Business</option>
+                    <option value="Govt Job">Govt Job</option>
+                </select>
+
+                <select id="reg-income" class="input-field">
+                    <option value="5-10 LPA">5-10 LPA</option>
+                    <option value="10-20 LPA">10-20 LPA</option>
+                    <option value="20+ LPA">20+ LPA</option>
+                </select>
+                
+                <button onclick="handleRegistration()" class="btn-primary w-full mt-4">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Save & Find Matches
+                </button>
+            </div>
+            <button onclick="router('screen-landing')" class="w-full text-center text-gray-400 text-sm mt-4 hover:underline">Cancel</button>
+        </div>
+    </section>
+
+    <section id="screen-dashboard" class="hidden-screen h-full flex flex-col">
+        <header class="bg-white border-b p-4 flex justify-between items-center shadow-sm z-10">
+            <div class="font-bold text-xl text-pink-600">WedLock</div>
+            <div class="flex items-center gap-4">
+                <span id="user-badge" class="text-xs font-bold bg-gray-100 px-2 py-1 rounded">FREE</span>
+                <button onclick="logout()" class="text-gray-500 hover:text-red-500"><i class="fa-solid fa-power-off"></i></button>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-4 bg-gray-50">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Recommended for You</h2>
+                    <button onclick="upgradePlan()" class="bg-amber-400 hover:bg-amber-500 text-black px-4 py-2 rounded-lg text-sm font-bold shadow-sm">
+                        <i class="fa-solid fa-crown mr-1"></i> Upgrade to Gold
+                    </button>
+                </div>
+                
+                <div id="matches-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+            </div>
+        </main>
+    </section>
+
+    <section id="screen-login-admin" class="hidden-screen h-full flex items-center justify-center bg-gray-900">
+        <div class="bg-white p-8 rounded-lg w-full max-w-sm">
+            <h2 class="text-2xl font-bold mb-4">Admin Access</h2>
+            <input type="password" id="admin-pass" placeholder="Enter Password" class="input-field mb-4">
+            <button onclick="handleAdminLogin()" class="btn-primary w-full">Login</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
