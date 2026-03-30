@@ -3,3 +3,4 @@ __pycache__/
 storage/cache/*
 storage/*.log
 !storage/cache/.gitkeep
+includes/config.local.php

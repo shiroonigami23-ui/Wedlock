@@ -43,9 +43,14 @@ Wedlock is now a **PHP-first matrimonial platform** designed for shared hosting 
 
 1. Create MySQL DB from InfinityFree panel.
 2. Put project files in `htdocs/`.
-3. Set DB credentials in control panel environment or directly in `includes/core.php` defaults.
-4. Ensure `storage/` is writable.
-5. Open site URL.
+3. Copy `includes/config.local.sample.php` to `includes/config.local.php`.
+4. Fill DB credentials in `includes/config.local.php`:
+   - host: `sql101.infinityfree.com`
+   - db: `if0_40800486_Wed_lock`
+   - user: `if0_40800486`
+   - password: your vPanel password
+5. Ensure `storage/` is writable.
+6. Open site URL.
 
 On first run, schema auto-creates and seeds:
 
@@ -72,3 +77,4 @@ This lets you use your own dashboard/landing/register/profile templates without 
 - Matching cache TTL is configured in `includes/core.php` (`cache_ttl`).
 - Profile status defaults to `pending` until admin approves.
 - Owner support WhatsApp: `7847948216` (also available on `contact.php`).
+- Multipage structure is now live: `index.php`, `register.php`, `login.php`, `dashboard.php`, `profile.php`, `packages.php`, `connections.php`, `admin.php`, `contact.php`.

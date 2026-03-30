@@ -24,9 +24,9 @@ function layout_nav(?array $user): void {
         echo '<a href="logout.php">Logout</a>';
     }
     echo '</nav></header>';
+    echo '<a class="wa-fab" href="https://wa.me/917847948216?text=Hi%20Wedlock%20Owner,%20I%20need%20support." target="_blank" rel="noreferrer" title="Chat on WhatsApp">WA</a>';
 }
 
 function layout_close(): void {
     echo '</body></html>';
 }
-

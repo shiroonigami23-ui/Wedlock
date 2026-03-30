@@ -2,13 +2,21 @@
 declare(strict_types=1);
 
 function app_config(): array {
-    return [
+    $base = [
         'db_host' => getenv('DB_HOST') ?: 'localhost',
         'db_name' => getenv('DB_NAME') ?: 'wedlock',
         'db_user' => getenv('DB_USER') ?: 'root',
         'db_pass' => getenv('DB_PASS') ?: '',
         'cache_ttl' => 300,
     ];
+    $localConfig = __DIR__ . '/config.local.php';
+    if (file_exists($localConfig)) {
+        $extra = require $localConfig;
+        if (is_array($extra)) {
+            $base = array_merge($base, $extra);
+        }
+    }
+    return $base;
 }
 
 function app_storage_path(string $name = ''): string {
@@ -226,4 +234,3 @@ function run_kmeans(PDO $pdo): void {
     $st = $pdo->prepare("INSERT INTO profile_vectors(user_id,cluster_id,v1,v2,v3,v4) VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE cluster_id=VALUES(cluster_id),v1=VALUES(v1),v2=VALUES(v2),v3=VALUES(v3),v4=VALUES(v4)");
     foreach ($vecs as $uid => $v) $st->execute([$uid, $asg[$uid], $v[0], $v[1], $v[2], $v[3]]);
 }
-

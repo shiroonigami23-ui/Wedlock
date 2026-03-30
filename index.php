@@ -14,6 +14,16 @@ $landing = $settings['landing_image_url'] ?? 'https://images.unsplash.com/photo-
   <div class="overlay">
     <h1>Find your forever partner</h1>
     <p>Modern matrimony with smart matching, admin moderation, premium plans, and direct owner support.</p>
+    <div class="tab-strip">
+      <a class="active" href="register.php">REGISTER</a>
+      <a href="login.php">SIGN IN</a>
+    </div>
+    <form class="hero-search" action="register.php" method="get">
+      <select><option>Looking For</option><option>Female</option><option>Male</option></select>
+      <input placeholder="Min Age" type="number">
+      <input placeholder="Max Age" type="number">
+      <button type="submit">Search Partner</button>
+    </form>
     <div class="row">
       <a class="btn" href="register.php">Create Profile</a>
       <a class="btn ghost" href="login.php">Sign In</a>
@@ -29,4 +39,3 @@ $landing = $settings['landing_image_url'] ?? 'https://images.unsplash.com/photo-
   </div>
 </section>
 <?php layout_close(); ?>
-
