@@ -1,5 +1,0 @@
-flask
-firebase-admin
-google-generativeai
-gunicorn
-razorpay

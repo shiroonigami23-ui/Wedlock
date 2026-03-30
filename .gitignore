@@ -1,2 +1,5 @@
 wedlock-key.json
 __pycache__/
+storage/cache/*
+storage/*.log
+!storage/cache/.gitkeep
