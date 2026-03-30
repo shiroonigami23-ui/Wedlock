@@ -9,11 +9,13 @@ layout_flash();
 layout_nav($user);
 ?>
 <main class="app">
-  <section class="card">
+  <details class="card" open>
+    <summary><h3 style="display:inline;">Pending Approval Queue</h3></summary>
     <h3>Pending Approval Queue</h3>
     <div id="pendingBox" class="loading">Loading pending profiles...</div>
-  </section>
-  <section class="card">
+  </details>
+  <details class="card" open>
+    <summary><h3 style="display:inline;">Plan Manager</h3></summary>
     <h3>Plan Manager</h3>
     <div id="adminPlans" class="loading">Loading plans...</div>
     <form id="planForm" class="form-grid">
@@ -28,8 +30,9 @@ layout_nav($user);
       <label><input type="checkbox" name="is_active" checked> Active</label>
       <button class="btn">Save Plan</button>
     </form>
-  </section>
-  <section class="card">
+  </details>
+  <details class="card" open>
+    <summary><h3 style="display:inline;">Template / Asset Settings</h3></summary>
     <h3>Template / Asset Settings</h3>
     <form id="settingsForm" class="form-grid">
       <label>Landing Image URL</label><input name="landing_image_url" value="<?= e((string)($settings['landing_image_url'] ?? '')) ?>">
@@ -39,7 +42,6 @@ layout_nav($user);
       <label>Payment QR URL</label><input name="payment_qr_url" value="<?= e((string)($settings['payment_qr_url'] ?? '')) ?>">
       <button class="btn">Save Settings</button>
     </form>
-  </section>
+  </details>
 </main>
 <?php layout_close(); ?>
-

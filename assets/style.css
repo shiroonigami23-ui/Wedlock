@@ -5,6 +5,7 @@ body { margin: 0; font-family: "Segoe UI", sans-serif; background: #f5f6fb; colo
 .brand::after { content:' Matrimony'; color:#f59e0b; font-size:14px; margin-left:4px; font-weight:600; }
 .topbar nav a { margin:0 8px; text-decoration:none; color:#374151; font-weight:600; }
 .topbar nav a:hover { color:#b91c1c; }
+.menu-toggle { display:none; border:1px solid #fca5a5; background:#fff; color:#b91c1c; border-radius:8px; padding:8px 10px; font-weight:700; }
 .landing { min-height: 62vh; background-size: cover; background-position:center; position:relative; border-top:6px solid #dc2626; }
 .overlay { background: linear-gradient(135deg, rgba(17,24,39,.75), rgba(127,29,29,.55)); color:#fff; min-height:62vh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:48px; }
 .overlay h1 { font-size: 48px; margin:0 0 10px; }
@@ -43,4 +44,10 @@ textarea { min-height: 86px; }
 .wa-fab { position:fixed; right:16px; bottom:16px; width:54px; height:54px; border-radius:999px; display:flex; align-items:center; justify-content:center; background:#16a34a; color:#fff; font-weight:800; text-decoration:none; box-shadow:0 10px 20px rgba(0,0,0,.2); z-index:30; }
 @keyframes shine { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
 @media (max-width:900px){ .hero-search { grid-template-columns:1fr 1fr; } }
+@media (max-width:760px){
+  .menu-toggle { display:block; }
+  .topbar nav { display:none; position:absolute; top:58px; left:0; right:0; background:#fff; border-bottom:1px solid #e5e7eb; padding:10px 14px; }
+  .topbar nav.open { display:flex; flex-wrap:wrap; gap:8px; }
+  .topbar nav a { margin:0; padding:8px 10px; background:#f9fafb; border-radius:8px; }
+}
 @media (max-width:640px){ .overlay { padding:28px 18px; } .overlay h1 { font-size:34px; } .hero-search{grid-template-columns:1fr;} }

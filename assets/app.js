@@ -148,3 +148,9 @@ if (page === 'admin') {
   loadAdminPlans();
   wireAdminForms();
 }
+
+const menuBtn = $('#menuToggle');
+const mainNav = $('#mainNav');
+if (menuBtn && mainNav) {
+  menuBtn.addEventListener('click', () => mainNav.classList.toggle('open'));
+}

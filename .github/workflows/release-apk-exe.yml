@@ -1,0 +1,104 @@
+name: Release APK + EXE
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install desktop deps
+        working-directory: desktop
+        run: npm install
+      - name: Build EXE
+        working-directory: desktop
+        run: npm run dist
+      - name: Collect EXE
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Path release-assets -Force | Out-Null
+          $exe = Get-ChildItem -Path desktop/dist -Filter *.exe -Recurse | Select-Object -First 1
+          Copy-Item $exe.FullName release-assets/wedlock-windows.exe -Force
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wedlock-exe
+          path: release-assets/wedlock-windows.exe
+
+  build-android-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: android-actions/setup-android@v3
+
+      - name: Generate Capacitor wrapper
+        run: |
+          mkdir -p mobile-wrapper
+          cd mobile-wrapper
+          npm init -y
+          npm install @capacitor/core @capacitor/android
+          npm install -D @capacitor/cli
+          npx cap init Wedlock com.wedlock.app --web-dir=www
+          cat > capacitor.config.json <<'JSON'
+          {
+            "appId": "com.wedlock.app",
+            "appName": "Wedlock",
+            "webDir": "www",
+            "server": {
+              "url": "https://sobran.lovestoblog.com",
+              "cleartext": true
+            }
+          }
+          JSON
+          mkdir -p www
+          echo '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>Loading Wedlock...</body></html>' > www/index.html
+          npx cap add android
+
+      - name: Build APK
+        run: |
+          cd mobile-wrapper/android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Collect APK
+        run: |
+          mkdir -p release-assets
+          cp mobile-wrapper/android/app/build/outputs/apk/release/app-release-unsigned.apk release-assets/wedlock-android.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wedlock-apk
+          path: release-assets/wedlock-android.apk
+
+  publish-release:
+    runs-on: ubuntu-latest
+    needs: [build-windows-exe, build-android-apk]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wedlock-exe
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: wedlock-apk
+          path: release-assets
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release-assets/wedlock-windows.exe
+            release-assets/wedlock-android.apk
+          generate_release_notes: true

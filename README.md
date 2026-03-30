@@ -1,4 +1,10 @@
 # Wedlock (PHP Matrimony Platform)
+[![Release APK + EXE](https://github.com/shiroonigami23-ui/Wedlock/actions/workflows/release-apk-exe.yml/badge.svg)](https://github.com/shiroonigami23-ui/Wedlock/actions/workflows/release-apk-exe.yml)
+![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?style=flat&logo=php)
+![MySQL](https://img.shields.io/badge/MySQL-Optimized-4479A1?style=flat&logo=mysql)
+![InfinityFree](https://img.shields.io/badge/Hosting-InfinityFree-6C2BD9?style=flat)
+
+Live URL: **https://sobran.lovestoblog.com**
 
 Wedlock is now a **PHP-first matrimonial platform** designed for shared hosting like **InfinityFree**:
 

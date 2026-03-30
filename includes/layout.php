@@ -15,7 +15,7 @@ function layout_flash(): void {
 }
 
 function layout_nav(?array $user): void {
-    echo '<header class="topbar"><div class="brand">Wedlock</div><nav>';
+    echo '<header class="topbar"><div class="brand">Wedlock</div><button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">Menu</button><nav id="mainNav">';
     if (!$user) {
         echo '<a href="index.php">Home</a><a href="register.php">Register</a><a href="login.php">Login</a><a href="contact.php">Contact</a>';
     } else {
