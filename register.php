@@ -45,8 +45,6 @@ $img = $settings['register_image_url'] ?? 'https://images.unsplash.com/photo-152
   </article>
   <article class="card">
     <img class="qr" style="max-width:100%;width:100%;height:auto;" src="<?= e($img) ?>" alt="Register template">
-    <p class="note">Template image for register page. Admin can replace it in settings.</p>
   </article>
 </section>
 <?php layout_close(); ?>
-

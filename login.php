@@ -31,8 +31,6 @@ layout_nav($user);
       <label>Password</label><input type="password" name="password" required>
       <button class="btn">Login</button>
     </form>
-    <p class="note">Admin: <code>admin@wedlock.local</code> / <code>admin123456</code></p>
   </article>
 </section>
 <?php layout_close(); ?>
-
