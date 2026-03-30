@@ -11,31 +11,39 @@ layout_nav($user);
 $landing = $settings['landing_image_url'] ?? 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1800&auto=format&fit=crop';
 ?>
 <main class="landing" style="background-image:url('<?= e($landing) ?>')">
-  <div class="overlay">
-    <h1>Find your forever partner</h1>
-    <p>Modern matrimony with smart matching, admin moderation, premium plans, and direct owner support.</p>
-    <div class="tab-strip">
-      <a class="active" href="register.php">REGISTER</a>
-      <a href="login.php">SIGN IN</a>
+  <div class="overlay hero-shell">
+    <p class="eyebrow">Trusted Matrimony Platform</p>
+    <h1>Serious profiles. Verified families. Meaningful matches.</h1>
+    <p class="hero-copy">A modern, premium space to discover genuine connections with privacy-first profiles, admin moderation, and direct support on WhatsApp.</p>
+    <div class="hero-actions">
+      <a class="btn" href="register.php">Create Your Profile</a>
+      <a class="btn ghost" href="login.php">Member Login</a>
+      <a class="btn ghost" href="packages.php">View Packages</a>
     </div>
-    <form class="hero-search" action="register.php" method="get">
-      <select><option>Looking For</option><option>Female</option><option>Male</option></select>
-      <input placeholder="Min Age" type="number">
-      <input placeholder="Max Age" type="number">
-      <button type="submit">Search Partner</button>
-    </form>
-    <div class="row">
-      <a class="btn" href="register.php">Create Profile</a>
-      <a class="btn ghost" href="login.php">Sign In</a>
+    <div class="hero-highlights">
+      <article>
+        <h3>Verified Onboarding</h3>
+        <p>Every profile passes an approval step before going live.</p>
+      </article>
+      <article>
+        <h3>Private & Secure</h3>
+        <p>Controlled visibility with secure account-based access.</p>
+      </article>
+      <article>
+        <h3>Direct Support</h3>
+        <p>Talk to owner directly on WhatsApp for package confirmation.</p>
+      </article>
     </div>
   </div>
 </main>
-<section class="card" style="max-width:980px;margin:16px auto;">
-  <h3>How It Works</h3>
-  <div class="grid">
-    <article class="match"><h4>1. Register</h4><p class="muted">Create your account and submit profile details.</p></article>
-    <article class="match"><h4>2. Admin Approval</h4><p class="muted">Owner/admin reviews profile for quality and safety.</p></article>
-    <article class="match"><h4>3. Smart Matching</h4><p class="muted">Unsupervised profile clustering suggests better matches.</p></article>
+<section class="card landing-strip">
+  <div class="landing-strip-head">
+    <h2>Start your profile today</h2>
+    <p>Join Wedlock and connect with people who are genuinely looking for marriage.</p>
+  </div>
+  <div class="landing-strip-actions">
+    <a class="btn" href="register.php">Register Now</a>
+    <a class="btn ghost" href="contact.php">Talk on WhatsApp</a>
   </div>
 </section>
 <?php layout_close(); ?>
