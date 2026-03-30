@@ -3,12 +3,31 @@ declare(strict_types=1);
 session_start();
 require __DIR__ . '/core.php';
 
-$pdo = pdo_conn();
-ensure_schema($pdo);
-$user = current_user($pdo);
-$settingsRows = $pdo->query("SELECT setting_key,setting_value FROM settings")->fetchAll();
+$pdo = null;
+$user = null;
 $settings = [];
-foreach ($settingsRows as $r) $settings[$r['setting_key']] = $r['setting_value'];
+$bootError = null;
+
+try {
+    $pdo = pdo_conn();
+    ensure_schema($pdo);
+    $user = current_user($pdo);
+    $settingsRows = $pdo->query("SELECT setting_key,setting_value FROM settings")->fetchAll();
+    foreach ($settingsRows as $r) {
+        $settings[$r['setting_key']] = $r['setting_value'];
+    }
+} catch (Throwable $e) {
+    $bootError = 'Database init failed';
+    $logDir = __DIR__ . '/../storage/logs';
+    if (!is_dir($logDir)) {
+        @mkdir($logDir, 0775, true);
+    }
+    @file_put_contents(
+        $logDir . '/boot.log',
+        date('c') . ' ' . $e->getMessage() . PHP_EOL,
+        FILE_APPEND
+    );
+}
 
 function redirect_to(string $path): void {
     header("Location: {$path}");
@@ -34,4 +53,3 @@ function require_login_or_redirect(?array $user): void {
 function require_admin_or_redirect(?array $user): void {
     if (!$user || ($user['role'] ?? '') !== 'admin') redirect_to('dashboard.php');
 }
-
