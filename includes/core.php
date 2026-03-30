@@ -178,7 +178,7 @@ function require_admin(PDO $pdo): array {
 
 function e(string $s): string { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 
-function cache_get(string $k): mixed {
+function cache_get(string $k) {
     $f = app_storage_path('cache') . '/' . md5($k) . '.json';
     if (!file_exists($f)) return null;
     $x = json_decode((string)file_get_contents($f), true);
@@ -186,7 +186,7 @@ function cache_get(string $k): mixed {
     return $x['v'] ?? null;
 }
 
-function cache_set(string $k, mixed $v, int $ttl): void {
+function cache_set(string $k, $v, int $ttl): void {
     $f = app_storage_path('cache') . '/' . md5($k) . '.json';
     file_put_contents($f, json_encode(['exp' => time() + $ttl, 'v' => $v]));
 }
@@ -200,7 +200,9 @@ function profile_vec(array $p): array {
     $age = age_from($p['dob'] ?? null); $ageN = $age ? max(0, min(1, ($age - 18) / 35)) : 0.5;
     $incomeN = max(0, min(1, ((float)($p['annual_income_lpa'] ?? 0)) / 60));
     $edu = strtolower((string)($p['education'] ?? ''));
-    $eduN = str_contains($edu, 'master') ? 0.8 : (str_contains($edu, 'bachelor') ? 0.6 : 0.4);
+    $hasMaster = strpos($edu, 'master') !== false;
+    $hasBachelor = strpos($edu, 'bachelor') !== false;
+    $eduN = $hasMaster ? 0.8 : ($hasBachelor ? 0.6 : 0.4);
     $cityN = (crc32(strtolower((string)($p['city'] ?? 'x'))) % 1000) / 1000;
     return [$ageN, $incomeN, $eduN, $cityN];
 }
