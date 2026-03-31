@@ -13,8 +13,8 @@ $landing = $settings['landing_image_url'] ?? 'https://images.unsplash.com/photo-
 <main class="landing" style="background-image:url('<?= e($landing) ?>')">
   <div class="overlay hero-shell">
     <p class="eyebrow">Trusted Matrimony Platform</p>
-    <h1>Serious profiles. Verified families. Meaningful matches.</h1>
-    <p class="hero-copy">A modern, premium space to discover genuine connections with privacy-first profiles, admin moderation, and direct support on WhatsApp.</p>
+    <h1>Find a life partner with dignity, trust, and clarity.</h1>
+    <p class="hero-copy">Wedlock is built for genuine matrimonial introductions with verified onboarding, thoughtful profile discovery, and premium member support.</p>
     <div class="hero-actions">
       <a class="btn" href="register.php">Create Your Profile</a>
       <a class="btn ghost" href="login.php">Member Login</a>
